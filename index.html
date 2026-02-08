@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daily Wisdom — Pro UI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style/style.css" />
+  <script defer src="script/script.js"></script>
+</head>
+
+<body>
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+
+  <!-- Background music (put your mp3 in assets/bgm.mp3) -->
+  <audio id="bgm" loop preload="auto">
+    <source src="assets/bgm.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"><span>✦</span></div>
+        <div class="titles">
+          <h1>Daily Wisdom</h1>
+          <p>Favorites · History · Filter · Auto-play · Typewriter · Music</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <!-- Category -->
+        <div class="control">
+          <label>Category</label>
+          <div class="select-wrap">
+            <select id="categorySelect" title="Filter by category"></select>
+          </div>
+        </div>
+
+        <!-- Auto -->
+        <div class="control auto-box" title="Auto change quotes">
+          <label>Auto</label>
+          <button class="pill-btn" id="autoToggle" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path id="autoIconPath" d="M9 6v12l10-6-10-6Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+            <span id="autoLabel">Start</span>
+          </button>
+          <input class="num" id="autoSeconds" type="number" min="5" max="600" step="1" value="20" />
+          <span class="unit">sec</span>
+        </div>
+
+        <!-- Music -->
+        <div class="control sound-box" title="Background music">
+          <label>Music</label>
+          <button class="pill-btn" id="musicBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path id="musicIconPath" d="M11 5 6 9H3v6h3l5 4V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path id="musicWaves" d="M15 9.5c1 .9 1 .9 1 2.5s0 1.6-1 2.5M17.5 7.5c2 1.7 2 2.6 2 4.5s0 2.8-2 4.5"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+            </svg>
+            <span id="musicLabel">Off</span>
+          </button>
+
+          <input id="musicVol" class="range" type="range" min="0" max="100" value="35" />
+        </div>
+
+        <!-- Library -->
+        <button class="icon-btn" id="libraryBtn" type="button" title="Open Favorites & History">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 0-2 2V4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M6 18h13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M9 8h7M9 12h7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span class="label">Library</span>
+        </button>
+
+        <!-- Theme -->
+        <button class="icon-btn" id="themeBtn" type="button" title="Toggle theme">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v2m0 14v2M5 12H3m18 0h-2M6.2 6.2 4.8 4.8m14.4 14.4-1.4-1.4M17.8 6.2l1.4-1.4M6.2 17.8l-1.4 1.4"
+                  stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"
+                  stroke="currentColor" stroke-width="1.6"/>
+          </svg>
+          <span class="label">Theme</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="card" id="card" aria-live="polite">
+        <div class="card-inner">
+          <div class="meta">
+            <div class="pill" id="quoteCategory"><span class="dot"></span><span>—</span></div>
+            <div class="date" id="currentDate">—</div>
+          </div>
+
+          <div class="quote">
+            <div class="qmark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9.5 11.2c0 3.1-2 5.3-5 6.3-.3.1-.6-.2-.5-.5.5-1.6 1.3-2.7 2.2-3.3-1.2-.3-2.2-1.4-2.2-2.9 0-1.7 1.3-3 3-3s2.5 1.4 2.5 3.4Z"
+                      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M20 11.2c0 3.1-2 5.3-5 6.3-.3.1-.6-.2-.5-.5.5-1.6 1.3-2.7 2.2-3.3-1.2-.3-2.2-1.4-2.2-2.9 0-1.7 1.3-3 3-3s2.5 1.4 2.5 3.4Z"
+                      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <p class="quote-text" id="quoteTextP">
+              <span class="typing-wrap" id="quoteText">Loading…</span><span class="cursor" id="cursor">▍</span>
+            </p>
+
+            <div class="qmark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9.5 11.2c0 3.1-2 5.3-5 6.3-.3.1-.6-.2-.5-.5.5-1.6 1.3-2.7 2.2-3.3-1.2-.3-2.2-1.4-2.2-2.9 0-1.7 1.3-3 3-3s2.5 1.4 2.5 3.4Z"
+                      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M20 11.2c0 3.1-2 5.3-5 6.3-.3.1-.6-.2-.5-.5.5-1.6 1.3-2.7 2.2-3.3-1.2-.3-2.2-1.4-2.2-2.9 0-1.7 1.3-3 3-3s2.5 1.4 2.5 3.4Z"
+                      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="author-row">
+            <span class="line"></span>
+            <div class="author" id="quoteAuthor">—</div>
+            <span class="line"></span>
+          </div>
+
+          <div class="controls">
+            <button class="btn primary" id="newBtn" type="button" title="New quote (N)">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M20 4v6h-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              New Quote
+            </button>
+
+            <button class="btn" id="favBtn" type="button" title="Favorite (F)">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 21s-7-4.35-9.3-9.02C1.5 9.45 3.2 6.5 6.6 6.2c1.9-.17 3.2.78 4.1 1.95.9-1.17 2.2-2.12 4.1-1.95 3.4.3 5.1 3.25 3.9 5.78C19 16.65 12 21 12 21Z"
+                      stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              </svg>
+              Favorite
+            </button>
+
+            <button class="btn" id="shareBtn" type="button" title="Share (S)">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M16 8a3 3 0 1 0-2.83-4H13a3 3 0 0 0 3 4Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M6 14a3 3 0 1 0 2.83 4H9a3 3 0 0 0-3-4Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M18 20a3 3 0 1 0-2.83-4H15a3 3 0 0 0 3 4Z" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M8.6 13l6.8-4M8.6 15l6.8 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              Share
+            </button>
+
+            <button class="btn" id="copyBtn" type="button" title="Copy (C)">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8 8h10v12H8z" stroke="currentColor" stroke-width="1.6" />
+                <path d="M6 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+              Copy
+            </button>
+          </div>
+
+          <div class="hint">
+            Shortcuts: <b>N</b> New · <b>F</b> Favorite · <b>S</b> Share · <b>C</b> Copy · <b>L</b> Library · <b>T</b> Theme · <b>M</b> Music
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="fcol">
+      <b>Daily Wisdom</b>
+      <p>Professional UI with smooth animations. Favorites/History/Music settings are saved in your browser storage.</p>
+    </div>
+    <div class="fcol">
+      <b>Keyboard</b>
+      <div class="kbd">
+        <span class="key">N</span><span class="key">F</span><span class="key">S</span><span class="key">C</span>
+        <span class="key">L</span><span class="key">T</span><span class="key">M</span>
+      </div>
+      <p style="margin-top:10px;">Autoplay + Music may require one click (browser policy).</p>
+    </div>
+    <div class="fcol">
+      <b>Status</b>
+      <p id="footerStatus">Ready.</p>
+      <p style="margin-top:10px;">© <span id="footerYear"></span> Daily Wisdom</p>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="badge" aria-hidden="true"></span>
+    <span id="toastText">Copied</span>
+  </div>
+
+  <!-- Drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <b>Library</b>
+        <span>Favorites & History</span>
+      </div>
+      <button class="drawer-close" id="drawerClose" type="button" title="Close">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tabFav" type="button">Favorites</button>
+      <button class="tab" id="tabHist" type="button">History</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="drawer-actions" id="drawerActions"></div>
+      <div class="list" id="drawerList"></div>
+    </div>
+  </aside>
+</body>
+</html>
