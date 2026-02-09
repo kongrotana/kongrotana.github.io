@@ -700,3 +700,29 @@ html[data-theme="light"] footer.footer{
   }
   .cursor{ animation:none !important; }
 }
+
+
+@media (max-width: 560px){
+
+  /* ✅ FIX: keep volume slider inside the Music control box */
+  .control.sound-box{
+    height: auto;          /* was fixed by .control */
+    min-height: 42px;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    justify-content: initial;  /* override space-between */
+    align-items: stretch;
+  }
+
+  .control.sound-box .pill-btn{
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .control.sound-box .range{
+    width: 100%;
+    margin: 0;
+  }
+}
